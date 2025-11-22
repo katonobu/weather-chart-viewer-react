@@ -28,7 +28,15 @@ jobs:
       # 4. ビルド
       - name: Build
         run: npm run build
-
+        
+      # 7. artifactを取っておく
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: deploy_to_dev
+          path: dist/
+          retention-days: 15
+          
       # 5. AWS認証情報を設定
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -40,10 +48,4 @@ jobs:
       - name: Upload to S3
         run: aws s3 sync dist/ s3://devweatherchartviewerstac-devweatherchartviewerdev-dfns4gu8gekq/
 
-      # 7. artifactを取っておく
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: deploy_to_dev
-          path: dist/
-          retention-days: 15
+
