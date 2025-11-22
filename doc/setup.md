@@ -114,3 +114,24 @@ export default App
 npm run dev
 ```
 ![画像](imgs/tailwindcss.png)
+
+## TanStack Router
+[Installation with Vite](https://tanstack.com/router/latest/docs/framework/react/installation/with-vite)
+[Vite × React × TanStack Router で始める快適フロント開発環境の構築](https://qiita.com/molpui0726/items/c213a563c0ba58705f72)
+### インストール
+```
+npm install @tanstack/react-router
+npm install -D @tanstack/router-plugin @tanstack/router-devtools
+```
+### vite.config.ts編集
+- 手動でRouteを作成するのでなくてよい。
+
+### main.jsx
+- 手動でRouteを作成
+
+### src/pages/Home.jsx
+- 一旦固定値でページリストをコーディング
+
+### src/pages/Viewer.jsx
+- パラメータが引き渡されていることを表示させて確認。
+
