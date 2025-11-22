@@ -23,23 +23,49 @@ export default function Home() {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold">Home Page</h1>
+      <h1 className="text-2xl font-bold">日付毎一覧</h1>
       <ul className="mt-4 space-y-2">
         {directories.length > 0 ? (
-          directories.map(dir => (
-            <li key={dir}>
-              <Link
-                to={`/viewer/${dir}`}
-                className="text-blue-500 hover:underline"
-              >
-                {dir}
-              </Link>
-            </li>
-          ))
+          directories.map(dir => {
+            // 年月日・時分を抽出
+            const year = dir.slice(0, 4);
+            const month = dir.slice(4, 6);
+            const day = dir.slice(6, 8);
+            const hour = dir.slice(9, 11);
+            const min = dir.slice(11, 13);
+
+            // タイムスタンプ文字列
+            const timeStampStr = `${year}年${month}月${day}日 ${hour}時${min}分`;
+
+            // タイトル判定
+            let title;
+            if (dir.endsWith("00")) {
+                title = `${timeStampStr} 週間天気予報解説資料`;
+            } else {
+                title = `${timeStampStr} 短期予報解説資料`;
+            }
+            return (
+              <li key={dir}>
+                <Link
+                  to={`/viewer/${dir}`}
+                  className="text-blue-500 hover:underline"
+                >
+                  {title}
+                </Link>
+              </li>
+            )
+          })
         ) : (
           <p>ディレクトリ一覧を読み込み中...</p>
         )}
       </ul>
+      <h2 className="text-2xl font-bold">データの出典</h2>
+      <p>
+        すべてのデータは
+        <a href="https://www.jma.go.jp/jma/index.html" className="text-blue-500 hover:underline">
+          気象庁
+        </a>発表データです。
+      </p>
     </div>
   )
 }
