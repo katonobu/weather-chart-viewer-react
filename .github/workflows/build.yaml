@@ -1,0 +1,38 @@
+name: build and deploy to stg env
+
+on:
+  workflow_dispatch: # 手動実行を許可
+  push:
+    branches:
+      - main
+
+jobs:
+  run_script:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. リポジトリをチェックアウト
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Node.jsをセットアップ
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      # 3. 依存関係インストール
+      - name: Install dependencies
+        run: npm ci
+
+      # 4. ビルド
+      - name: Build
+        run: npm run build
+
+      # 5. artifactを取っておく
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build_artifact
+          path: dist/
+          retention-days: 15
