@@ -1,4 +1,4 @@
-name: build and deploy to stg env
+name: build when push to main or manual
 
 on:
   workflow_dispatch: # 手動実行を許可
