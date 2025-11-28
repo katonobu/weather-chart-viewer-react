@@ -26,7 +26,7 @@ export default function Home() {
       <h1 className="text-2xl font-bold">日付毎一覧</h1>
       <ul className="mt-4 space-y-2">
         {directories.length > 0 ? (
-          directories.map(dir => {
+          directories.filter(dir => /^\d{8}_\d{4}$/.test(dir)).map(dir => {
             // 年月日・時分を抽出
             const year = dir.slice(0, 4);
             const month = dir.slice(4, 6);
