@@ -1,5 +1,4 @@
 # weather-chart-viewer-react
 天気図閲覧のためのフロントエンドをREACTで構成
 
-- [dev](https://d3kq6yvdtmctuz.cloudfront.net/)
-
+- 動作ページ(https://d179rbeeesivh7.cloudfront.net/)
