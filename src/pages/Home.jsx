@@ -66,6 +66,8 @@ export default function Home() {
           気象庁
         </a>発表データです。
       </p>
+      <hr></hr>
+      <p>Build Time : {import.meta.env.VITE_BUILD_TIME}</p>
     </div>
   )
 }
