@@ -24,7 +24,7 @@ export default function Home() {
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold">日付毎一覧</h1>
-      <ul className="mt-4 space-y-2">
+      <ul className="list-disc text-wrap px-10">
         {directories.length > 0 ? (
           directories.filter(dir => /^\d{8}_\d{4}$/.test(dir)).map(dir => {
             // 年月日・時分を抽出
@@ -59,15 +59,15 @@ export default function Home() {
           <p>ディレクトリ一覧を読み込み中...</p>
         )}
       </ul>
-      <h2 className="text-2xl font-bold">データの出典</h2>
+      <hr></hr>
+      <h2 className="text-lg font-bold">データの出典</h2>
       <p>
         すべてのデータは
         <a href="https://www.jma.go.jp/jma/index.html" className="text-blue-500 hover:underline">
           気象庁
         </a>発表データです。
       </p>
-      <hr></hr>
-      <p>Build Time : {import.meta.env.VITE_BUILD_TIME}</p>
+      <p className="text-xs">Build Time : {import.meta.env.VITE_BUILD_TIME}</p>
     </div>
   )
 }
