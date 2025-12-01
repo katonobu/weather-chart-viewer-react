@@ -1,28 +1,23 @@
-import { useEffect, useState } from 'react'
 import { viewerRoute } from '../main'
 import { useParams } from '@tanstack/react-router'
 import { Link } from '@tanstack/react-router'
+import { TextToSpeechCtrl } from '../components/TextToSpeechCtrl'
+import { useFetchMetaData } from '../components/useFetchMetaData'
+import { useFetchKaisetsuData, isTankiYohou } from '../components/useFetchKaisetsuData'
+import { Footer } from '../components/Footer'
 
 export default function Viewer() {
   const { dir } = useParams({ from: viewerRoute.id })
-  const [metadata, setMetadata] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const {
+    metadata,
+    loading
+  } = useFetchMetaData(dir)
 
-  useEffect(() => {
-    fetch(`/${dir}/metadata.json`)
-      .then(response => {
-        if (!response.ok) throw new Error('Failed to fetch metadata')
-        return response.json()
-      })
-      .then(data => {
-        setMetadata(data)
-        setLoading(false)
-      })
-      .catch(error => {
-        console.error('Error fetching metadata:', error)
-        setLoading(false)
-      })
-  }, [dir])
+  const {
+    kaisetsu,
+    loading:kaisetsuLoading
+  } = useFetchKaisetsuData(metadata, dir)
+
 
   if (loading) return <p className="p-4">読み込み中...</p>
   if (!metadata) return <p className="p-4">データがありません。</p>
@@ -38,6 +33,7 @@ export default function Viewer() {
 
       <h1 className="text-2xl font-bold">{metadata.title}</h1>
       <p>{metadata.released_at_j}</p>
+      {isTankiYohou(metadata)?<TextToSpeechCtrl texts={kaisetsu} loading={kaisetsuLoading}></TextToSpeechCtrl>:null}
 
       <h2 className="text-2xl font-bold">ページ内リンク</h2>
       <ul className="list-disc text-wrap px-10">
@@ -69,14 +65,8 @@ export default function Viewer() {
         ))
       }
       <p><a href="#top" className="text-blue-500 hover:underline">ページの先頭</a></p>
-      <hr></hr>
-      <h2 className="text-lg font-bold">データの出典</h2>
-      <p>
-        すべてのデータは
-        <a href="https://www.jma.go.jp/jma/index.html" className="text-blue-500 hover:underline">
-          気象庁
-        </a>発表データです。
-      </p>
+
+      <Footer></Footer>
     </div>
   )
 }
