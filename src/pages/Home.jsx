@@ -1,4 +1,4 @@
-import { useFetchDirList } from '../components/useFetchDirList'
+import { useFetchDirList } from '../hooks/useFetchDirList'
 import { DirLinkList } from '../components/DirLinkList'
 import { Footer } from '../components/Footer'
 

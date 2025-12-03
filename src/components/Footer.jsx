@@ -1,4 +1,4 @@
-import { isTankiYohou } from '../components/useFetchKaisetsuData'
+import { isTankiYohou } from '../hooks/useFetchKaisetsuData'
 import { TextToSpeechCtrl } from '../components/TextToSpeechCtrl'
 
 export const Footer = ({metadata, kaisetsu, kaisetsuLoading}) => (

@@ -1,35 +1,20 @@
-import { useEffect, useRef, useState } from "react";
 import { viewerRoute } from '../main'
 import { useParams } from '@tanstack/react-router'
 import { Link } from '@tanstack/react-router'
-import { useFetchMetaData } from '../components/useFetchMetaData'
-import { useFetchKaisetsuData } from '../components/useFetchKaisetsuData'
+import { useFetchMetaData } from '../hooks/useFetchMetaData'
+import { useFetchKaisetsuData } from '../hooks/useFetchKaisetsuData'
+import { useFooterHeight } from '../hooks/useFooterHeight'
 import { Footer } from '../components/Footer'
 
 export default function Viewer() {
-  const footerRef = useRef(null);
-  const [footerHeight, setFooterHeight] = useState(130);
-
-  useEffect(() => {
-    const updateHeight = () => {
-      if (footerRef.current) {
-        setFooterHeight(footerRef.current.offsetHeight);
-        console.log(footerRef.current.offsetHeight)
-      } else {
-        console.log("Not updated")
-      }
-    };
-
-    // 初期レンダリング直後に高さを取得
-    requestAnimationFrame(updateHeight);
-
-    // ウィンドウサイズ変更時にも再計算
-    window.addEventListener("resize", updateHeight);
-    return () => window.removeEventListener("resize", updateHeight);
-  }, []);
 
 
   const { dir } = useParams({ from: viewerRoute.id })
+  const {
+    footerRef, 
+    footerHeight
+  } = useFooterHeight()
+
   const {
     metadata,
     loading

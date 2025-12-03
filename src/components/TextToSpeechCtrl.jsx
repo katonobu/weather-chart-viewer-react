@@ -1,5 +1,5 @@
-import { useTextToSpeech } from "./useTextToSpeech";
-import { useTtsTicker } from "./useTtsTicker";
+import { useTextToSpeech } from "../hooks/useTextToSpeech";
+import { useTtsTicker } from "../hooks/useTtsTicker";
 import { TtsTicker } from "./TtsTicker";
 
 export const TextToSpeechCtrl = ({texts, loading}) => {
