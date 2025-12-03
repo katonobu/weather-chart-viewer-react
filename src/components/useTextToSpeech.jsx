@@ -4,8 +4,11 @@ import { useState, useRef, useEffect } from "react";
 export const useTextToSpeech = ( tracks ) => {
   const [playingStt, setPlayingStt] = useState("IDLE");
   const [currentTrack, setCurrentTrack] = useState(0);
-  const synth = window.speechSynthesis;
+  const [currentStr, setCurrentStr] = useState("")
+  const [eventInfo, setEventInfo] = useState(null)
   const utteranceRef = useRef(null);
+
+  const synth = window.speechSynthesis;
 
   // reloadされるとき、再生を停止させる。
   useEffect(() => {
@@ -25,11 +28,13 @@ export const useTextToSpeech = ( tracks ) => {
       console.log("All tracks finished");
       setPlayingStt("IDLE");
       setCurrentTrack(0);
+      setCurrentStr("")
       return;
     }
 
     // 指定トラック文字列を登録
     const u = new SpeechSynthesisUtterance(tracks[index]);
+    setCurrentStr(tracks[index])
     utteranceRef.current = u;
 
     // 再生開始時ハンドラ
@@ -58,6 +63,10 @@ export const useTextToSpeech = ( tracks ) => {
         playTrack(index + 1); // 次を再生
       }
     };
+    u.onboundary = (event) => {
+      const {charIndex, elapsedTime, name, type} = event
+      setEventInfo({charIndex, elapsedTime, name, type})
+    }
 
     // 先頭から再生開始
     synth.speak(u);
@@ -88,6 +97,7 @@ export const useTextToSpeech = ( tracks ) => {
     console.log("Stop")
     setPlayingStt("IDLE");
     setCurrentTrack(0);
+    setCurrentStr("")
   };
 
   const playStopDisabled = () => false
@@ -145,6 +155,8 @@ export const useTextToSpeech = ( tracks ) => {
     playingStt,
     currentTrack,
     totalTracks: tracks.length,
+    currentStr,
+    eventInfo,
     playDisabled,
     play,
     pauseDisabled,

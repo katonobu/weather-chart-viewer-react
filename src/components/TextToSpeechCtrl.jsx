@@ -1,11 +1,14 @@
-
 import { useTextToSpeech } from "./useTextToSpeech";
+import { useTtsTicker } from "./useTtsTicker";
+import { TtsTicker } from "./TtsTicker";
 
 export const TextToSpeechCtrl = ({texts, loading}) => {
   const {
     playingStt,
     currentTrack,
     totalTracks,
+    currentStr,
+    eventInfo,
     playStopDisabled,
     playStop,
     prevTrackDisabled,
@@ -17,9 +20,13 @@ export const TextToSpeechCtrl = ({texts, loading}) => {
   const playStopButtonLabel =
     (playingStt === "IDLE" || playingStt === "PAUSE") ? "▶" :  (playingStt === "PLAY") ? "⏹" : "..."
 
+  const startOffset = 3
+  const updateIntervalMs = 500
+  const {displayStartIndex, charsPerSec} = useTtsTicker(currentStr, playingStt, eventInfo, startOffset, updateIntervalMs)
+  const length = 32
   return (
-    <div className="p-4">
-      <p>{loading?"Loading ...":`TRACK : ${currentTrack + 1}/${totalTracks}`}</p>
+    <>
+    <div className="flex items-center justify-start space-x-4">
       <button
         className={`px-1 py-1 rounded text-white 
                     ${prevTrackDisabled() || loading || !texts ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"}`}
@@ -38,6 +45,9 @@ export const TextToSpeechCtrl = ({texts, loading}) => {
         onClick={nextTrack}
         disabled={nextTrackDisabled() || loading || !texts}
       >⏭</button>
+      <p>{loading?"Loading ...":`TRACK : ${currentTrack + 1}/${totalTracks}`}</p>
     </div>
+      <TtsTicker currentStr={currentStr} displayStartIndex={displayStartIndex}></TtsTicker>
+    </>
   );
 };
