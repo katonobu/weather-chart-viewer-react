@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { viewerRoute } from '../main'
 import { useParams } from '@tanstack/react-router'
 import { Link } from '@tanstack/react-router'
@@ -6,6 +7,28 @@ import { useFetchKaisetsuData } from '../components/useFetchKaisetsuData'
 import { Footer } from '../components/Footer'
 
 export default function Viewer() {
+  const footerRef = useRef(null);
+  const [footerHeight, setFooterHeight] = useState(130);
+
+  useEffect(() => {
+    const updateHeight = () => {
+      if (footerRef.current) {
+        setFooterHeight(footerRef.current.offsetHeight);
+        console.log(footerRef.current.offsetHeight)
+      } else {
+        console.log("Not updated")
+      }
+    };
+
+    // 初期レンダリング直後に高さを取得
+    requestAnimationFrame(updateHeight);
+
+    // ウィンドウサイズ変更時にも再計算
+    window.addEventListener("resize", updateHeight);
+    return () => window.removeEventListener("resize", updateHeight);
+  }, []);
+
+
   const { dir } = useParams({ from: viewerRoute.id })
   const {
     metadata,
@@ -23,7 +46,7 @@ export default function Viewer() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <div className="p-4 flex-grow">
+      <div className="p-4" style={{ paddingBottom: footerHeight }}>
         <Link
           id="top"
           to={`/`}
@@ -66,7 +89,9 @@ export default function Viewer() {
         <p><a href="#top" className="text-blue-500 hover:underline">ページの先頭</a></p>
 
       </div>
-      <div className="fixed bottom-0 w-full bg-white p-4">
+      <div
+        ref={footerRef}
+        className="fixed bottom-0 w-full bg-white p-4">
         <Footer metadata={metadata} kaisetsu={kaisetsu} kaisetsuLoading={kaisetsuLoading}></Footer>
       </div>
     </div>
