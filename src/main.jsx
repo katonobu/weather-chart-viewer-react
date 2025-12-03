@@ -7,6 +7,7 @@ import './index.css'
 // ページコンポーネント
 import Home from './pages/Home.jsx'
 import Viewer from './pages/Viewer.jsx'
+import About from './pages/About.jsx'
 
 // ルート定義
 const rootRoute = createRootRoute({
@@ -26,9 +27,19 @@ export const viewerRoute = createRoute({
 
 })
 
+const aboutRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/about',
+  component: About,
+})
+
 // ルーター作成
 const router = createRouter({
-  routeTree: rootRoute.addChildren([homeRoute, viewerRoute]),
+  routeTree: rootRoute.addChildren([
+    homeRoute, 
+    viewerRoute,
+    aboutRoute
+  ]),
 })
 
 ReactDOM.createRoot(document.getElementById('root')).render(
