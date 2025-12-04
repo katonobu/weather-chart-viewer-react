@@ -35,7 +35,7 @@ jobs:
         run: |
           # 環境変数を export してビルドに渡す
           export VITE_BASE_PATH=${{ matrix.VITE_BASE_PATH }}
-          npm run build -- --mode ${{ matrix.mode }}
+          npm run build-${{ matrix.mode }}
 
       - name: Upload artifact (${{ matrix.mode }})
         uses: actions/upload-artifact@v4
