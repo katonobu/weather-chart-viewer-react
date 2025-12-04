@@ -8,10 +8,16 @@ export const Footer = ({ metadata, kaisetsu, kaisetsuLoading }) => (
     {isTankiYohou(metadata) ? <TextToSpeechCtrl texts={kaisetsu} loading={kaisetsuLoading}></TextToSpeechCtrl> : null}
     <hr></hr>
     <p className="text-sm">
-      データの出典:各種画像データは
       <a href="https://www.jma.go.jp/jma/index.html" className="text-blue-500 hover:underline">
-        気象庁
-      </a>発表データから抽出しています。
+      気象庁ホームページ
+      </a>のデータを加工して作成。
+      引用元URL、加工内容の詳細は、
+      <Link
+        to={`/reference`}
+        className="text-sm text-blue-500 hover:underline"
+      >
+        こちら
+      </Link>
     </p>
     <Link
       to={`/about`}

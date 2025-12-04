@@ -8,6 +8,7 @@ import './index.css'
 import Home from './pages/Home.jsx'
 import Viewer from './pages/Viewer.jsx'
 import About from './pages/About.jsx'
+import Reference from './pages/Reference.jsx'
 
 // ルート定義
 const rootRoute = createRootRoute({
@@ -33,12 +34,19 @@ const aboutRoute = createRoute({
   component: About,
 })
 
+const referenceRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/reference',
+  component: Reference,
+})
+
 // ルーター作成
 const router = createRouter({
   routeTree: rootRoute.addChildren([
     homeRoute, 
     viewerRoute,
-    aboutRoute
+    aboutRoute,
+    referenceRoute
   ]),
 })
 
