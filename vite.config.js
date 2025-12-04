@@ -8,7 +8,7 @@ export default defineConfig(({ mode }) => {
   const env = mode // ここでは mode をそのまま利用
 
   return {
-    base: process.env.VITE_BASE || '/',
+    base: process.env.VITE_BASE_PATH || '/',
     plugins: [
       react(),
       tailwindcss(),
