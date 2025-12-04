@@ -30,7 +30,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run build-prd
+        run: npm run build-dev
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
