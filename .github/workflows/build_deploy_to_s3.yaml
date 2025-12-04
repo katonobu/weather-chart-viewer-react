@@ -45,12 +45,12 @@ jobs:
           path: dist
 
       # 8. タイムスタンプディレクトリアップロード
-#      - name: Sync files to S3
-#        run: |
-#          aws s3 sync ./dist s3://weather-chart-deploy-item-strage/${{ env.DEPLOY_DIR }}/${{ matrix.mode }} --delete
+      - name: Sync files to S3
+        run: |
+          aws s3 sync ./dist s3://weather-chart-deploy-item-strage/${{ env.DEPLOY_DIR }}_${{ matrix.mode }} --delete
 
 
       # 9. 最新版ディレクトリも更新
-#      - name: Update latest directory
-#        run: |
-#          aws s3 sync ./dist s3://weather-chart-deploy-item-strage/latest/${{ matrix.mode }} --delet
+      - name: Update latest directory
+        run: |
+          aws s3 sync ./dist s3://weather-chart-deploy-item-strage/latest/${{ matrix.mode }} --delet
