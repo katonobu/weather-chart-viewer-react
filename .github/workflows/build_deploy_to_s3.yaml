@@ -43,6 +43,7 @@ jobs:
         with:
           name: build-${{ matrix.mode }}-${{ env.DEPLOY_DIR }}
           path: dist
+          retention-days: 3
 
       # 7. AWS認証設定
       - name: Configure AWS credentials
