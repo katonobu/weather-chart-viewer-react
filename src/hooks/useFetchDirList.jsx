@@ -3,10 +3,12 @@ import { useState, useEffect } from "react";
 export const useFetchDirList = ( dir ) => {
   const [directories, setDirectories] = useState([])
   const [loading, setLoading] = useState(true)
+  // 環境変数 VITE_CONTENTS_PATH を参照
+  const contentsPath = import.meta.env.VITE_CONTENTS_PATH || "/"
 
   useEffect(() => {
     // public/directory_list.json を取得
-    fetch('/directory_list.json')
+    fetch(`${contentsPath}directory_list.json`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Failed to fetch directory list')

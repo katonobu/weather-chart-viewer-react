@@ -5,10 +5,12 @@ export const isTankiYohou = (metadata) => (metadata && metadata.title === "短�
 export const useFetchKaisetsuData = ( metadata, dir ) => {
   const [kaisetsu, setKaisetsu] = useState([])
   const [loading, setLoading] = useState(true)
+  // 環境変数 VITE_CONTENTS_PATH を参照
+  const contentsPath = import.meta.env.VITE_CONTENTS_PATH || "/"
 
   useEffect(() => {
     if (isTankiYohou(metadata)) {
-      fetch(`/${dir}/kaisetsu_tanki.json`)
+      fetch(`${contentsPath}${dir}/kaisetsu_tanki.json`)
         .then(response => {
           if (!response.ok) throw new Error('Failed to fetch kaisetsu data')
           return response.json()
