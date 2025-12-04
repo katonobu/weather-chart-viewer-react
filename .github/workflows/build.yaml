@@ -1,0 +1,44 @@
+name: Build Vite App
+
+on:
+  workflow_dispatch: # 手動実行を許可
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        mode: [dev, stg, prd]
+        include:
+          # prd の追加パターン
+          - mode: prd
+            VITE_BASE_PATH: weather-chart-viewer-react
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Set timestamp
+        run: echo "DEPLOY_DIR=$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build (${{ matrix.mode }})
+        run: |
+          # 環境変数を export してビルドに渡す
+          export VITE_BASE_PATH=${{ matrix.VITE_BASE_PATH }}
+          npm run build -- --mode ${{ matrix.mode }}
+
+      - name: Upload artifact (${{ matrix.mode }})
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-${{ matrix.mode }}${{ matrix.VITE_BASE_PATH && format('-{0}', matrix.VITE_BASE_PATH) }}${{ env.DEPLOY_DIR }}
+          path: dist
