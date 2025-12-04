@@ -4,8 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "VITE_BUILD_TIME=1967-09-17 vite",
-    "build": "VITE_BUILD_TIME=$(date +'%Y-%m-%d %H:%M:%S') vite build",
+    "dev": "VITE_BUILD_TIME=1967-09-17 vite dev --mode dev",
+    "dev-stg": "VITE_BUILD_TIME=1967-09-17 vite dev --mode stg",
+    "dev-prd": "VITE_BUILD_TIME=1967-09-17 vite dev --mode prd",
+    "build-dev": "VITE_BUILD_TIME=$(date +'%Y-%m-%d %H:%M:%S') vite build --mode dev",
+    "build-stg": "VITE_BUILD_TIME=$(date +'%Y-%m-%d %H:%M:%S') vite build --mode stg",
+    "build-prd": "VITE_BUILD_TIME=$(date +'%Y-%m-%d %H:%M:%S') vite build --mode prd",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -27,6 +31,7 @@
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
     "tailwindcss": "^4.1.17",
-    "vite": "^7.2.4"
+    "vite": "^7.2.4",
+    "vite-plugin-static-copy": "^3.1.4"
   }
 }
