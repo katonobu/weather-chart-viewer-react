@@ -48,6 +48,7 @@ const router = createRouter({
     aboutRoute,
     referenceRoute
   ]),
+  basepath: import.meta.env.VITE_BASE_PATH, // ← ここで環境変数を利用
 })
 
 ReactDOM.createRoot(document.getElementById('root')).render(
