@@ -33,7 +33,10 @@ export default function Viewer() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <div className="p-4" style={{ paddingBottom: footerHeight }}>
+      <div
+          className="p-4"
+          style={{ paddingBottom: footerHeight }}
+      >
         <ToListPage id="top"></ToListPage>
 
         <h1 className="text-2xl font-bold">{metadata.title}</h1>
@@ -44,8 +47,6 @@ export default function Viewer() {
 
         <h2 className="text-2xl font-bold">各画像</h2>
         <Pictures metadata={metadata} contentsPath={contentsPath} dir={dir}></Pictures>
-        <p>　</p><br></br>
-        <p>　</p><br></br>
       </div>
       <div
         ref={footerRef}

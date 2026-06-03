@@ -41,18 +41,17 @@ export default function Reference() {
         </div>
     )
 
-    // 環境変数 VITE_CONTENTS_PATH を参照
-    const contentsPath = import.meta.env.VITE_CONTENTS_PATH || "/"
     return (
         <div>
-            <div className="p-4">
+            <div
+                className="p-4"
+                style={{ paddingBottom: footerHeight }}
+            >
                 <ToListPage id="top"></ToListPage>
                 <br></br>
                 <ToSpecifiedPage metadata={metadata}></ToSpecifiedPage>
                 <SourceDescription metadata={metadata}></SourceDescription>
                 <ToSpecifiedPage metadata={metadata}></ToSpecifiedPage>
-                <p>　</p><br></br>
-                <p>　</p><br></br>
             </div>
             <div
                 ref={footerRef}

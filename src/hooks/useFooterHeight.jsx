@@ -1,27 +1,27 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 
 export const useFooterHeight = ()=>{
-  const default_height = 150
+  const [footerHeight, setFooterHeight] = useState(0);
 
-  const footerRef = useRef(null);
-  const [footerHeight, setFooterHeight] = useState(default_height);
+  const footerRef = useCallback((node) => {
+    if (node) {
+      const observer = new ResizeObserver(([entry]) => {
+        console.log(`val = ${entry.contentRect.height}`);
+        if (0 < entry.contentRect.height) {
+          const style = getComputedStyle(node);
 
-  useEffect(() => {
-    const updateHeight = () => {
-      if (footerRef.current) {
-        setFooterHeight(footerRef.current.offsetHeight);
-        console.log(footerRef.current.offsetHeight)
-      } else {
-        console.log("Not updated")
-      }
-    };
+          const pt = parseFloat(style.paddingTop);
+          const pb = parseFloat(style.paddingBottom);
 
-    // 初期レンダリング直後に高さを取得
-    requestAnimationFrame(updateHeight);
+          const fullHeight = entry.contentRect.height + pt + pb;
 
-    // ウィンドウサイズ変更時にも再計算
-    window.addEventListener("resize", updateHeight);
-    return () => window.removeEventListener("resize", updateHeight);
+          console.log(`Update to ${fullHeight} = ${entry.contentRect.height} + ${pt} + ${pb}`);
+          setFooterHeight(fullHeight)
+        }
+      });
+      observer.observe(node);
+    }
+    return
   }, []);
 
   return {footerRef, footerHeight}
