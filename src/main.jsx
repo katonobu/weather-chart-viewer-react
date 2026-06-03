@@ -9,6 +9,7 @@ import Home from './pages/Home.jsx'
 import Viewer from './pages/Viewer.jsx'
 import About from './pages/About.jsx'
 import Reference from './pages/Reference.jsx'
+import Source from './pages/Source.jsx'
 
 // ルート定義
 const rootRoute = createRootRoute({
@@ -25,6 +26,13 @@ export const viewerRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/viewer/$dir', // 動的パラメータ
   component: Viewer,
+
+})
+
+export const sourceRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/source/$dir', // 動的パラメータ
+  component: Source,
 
 })
 
@@ -45,6 +53,7 @@ const router = createRouter({
   routeTree: rootRoute.addChildren([
     homeRoute, 
     viewerRoute,
+    sourceRoute,
     aboutRoute,
     referenceRoute
   ]),

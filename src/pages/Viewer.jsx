@@ -53,6 +53,12 @@ export default function Viewer() {
         </ul>
 
         <h2 className="text-2xl font-bold">各画像</h2>
+        <Link
+            to={`/source/${dir}`}
+            className="text-blue-500 hover:underline"
+        >
+            本ページで参照しているデータの引用元情報
+        </Link>
         {
           metadata.files.map(item => (
             <div key={`p-${item.id}`}>
@@ -73,7 +79,12 @@ export default function Viewer() {
           ))
         }
         <p><a href="#top" className="text-blue-500 hover:underline">ページの先頭</a></p>
-
+        <Link
+            to={`/source/${dir}`}
+            className="text-blue-500 hover:underline"
+        >
+            本ページで参照しているデータの引用元情報
+        </Link>
       </div>
       <div
         ref={footerRef}

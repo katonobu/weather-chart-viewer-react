@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 
 export const useFooterHeight = ()=>{
+  const default_height = 150
+
   const footerRef = useRef(null);
-  const [footerHeight, setFooterHeight] = useState(130);
+  const [footerHeight, setFooterHeight] = useState(default_height);
 
   useEffect(() => {
     const updateHeight = () => {

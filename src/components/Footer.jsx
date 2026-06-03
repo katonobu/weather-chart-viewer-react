@@ -14,13 +14,15 @@ export const Footer = ({ metadata, kaisetsu, kaisetsuLoading }) => {
         <a href="https://www.jma.go.jp/jma/index.html" className="text-blue-500 hover:underline">
         気象庁ホームページ
         </a>のデータを加工して作成。
-        引用元URL、加工内容の詳細は、
+        加工内容の概要は、
         <Link
           to={`/reference`}
           className="text-sm text-blue-500 hover:underline"
         >
           こちら
-        </Link>
+        </Link>。
+        <br></br>
+        引用元情報情報、引用時刻等は各ページにある「本ページで参照しているデータの引用元情報」のリンクを参照のこと。
       </p>
       <Link
         to={`/about`}

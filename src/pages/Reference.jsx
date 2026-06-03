@@ -1,7 +1,7 @@
 import { Link } from '@tanstack/react-router'
 import { Footer } from '../components/Footer'
 
-export default function About() {
+export default function Reference() {
     return (
         <div className="p-4">
             <Link
@@ -11,8 +11,12 @@ export default function About() {
             >日付毎一覧ページへ
             </Link>
             <h1 className="text-2xl font-bold">目的</h1>
-            <p><a href="https://www.jma.go.jp/jma/kishou/info/coment.html" className="text-blue-500 hover:underline">気象庁ホームページのコンテンツの利用について</a>に基づき、本サイトで引用している気象庁データの引用元URL及び加工方法概要を記載します。</p>
-            <h2 className="text-lg font-bold">参照データについて</h2>
+            <p><a href="https://www.jma.go.jp/jma/kishou/info/coment.html" className="text-blue-500 hover:underline">
+              気象庁ホームページのコンテンツの利用について
+            </a>
+            に基づき、本サイトで引用している気象庁データの加工方法概要を記載します。
+            </p>
+            <h2 className="text-lg font-bold">引用データの加工</h2>
             <ul className="list-disc text-wrap px-10">
                 <li><a href="https://www.jma.go.jp/jma/kishou/know/expert/index.html">気象の専門家向け資料集</a>の各リンクよりデータを取得、抽出を基本としています。</li>
                 <ul className="list-disc text-wrap px-10">
