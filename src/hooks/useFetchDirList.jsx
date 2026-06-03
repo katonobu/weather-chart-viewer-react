@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export const useFetchDirList = ( dir ) => {
+export const useFetchDirList = () => {
   const [directories, setDirectories] = useState([])
   const [loading, setLoading] = useState(true)
   // 環境変数 VITE_CONTENTS_PATH を参照
@@ -23,7 +23,7 @@ export const useFetchDirList = ( dir ) => {
         console.error('Error fetching directory list:', error)
         setLoading(false)
       })
-  }, [])
+  }, [contentsPath])
 
   return {
     directories,

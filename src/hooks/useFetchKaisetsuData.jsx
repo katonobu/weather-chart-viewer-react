@@ -42,7 +42,7 @@ export const useFetchKaisetsuData = ( metadata, dir ) => {
           console.error('Error fetching kaisetsu data:', error)
         })
     }
-  }, [metadata])
+  }, [metadata, contentsPath, dir])
 
   return {
     kaisetsu,

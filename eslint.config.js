@@ -6,6 +6,16 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
   globalIgnores(['dist']),
+
+  // ✅ ① vite.config.js を Node 環境として扱う
+  {
+    files: ['vite.config.{js,ts}'],
+    languageOptions: {
+      globals: globals.node,
+    },
+  },
+
+  // ✅ ② それ以外は今までどおり（ブラウザ）
   {
     files: ['**/*.{js,jsx}'],
     extends: [

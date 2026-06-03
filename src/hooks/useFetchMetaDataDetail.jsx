@@ -20,7 +20,7 @@ export const useFetchMetaDataDetail = ( dir ) => {
         console.error('Error fetching metadata:', error)
         setLoading(false)
       })
-  }, [dir])
+  }, [dir, contentsPath])
 
   return {
     metadata,

@@ -22,8 +22,7 @@ export const TextToSpeechCtrl = ({texts, loading}) => {
 
   const startOffset = 3
   const updateIntervalMs = 500
-  const {displayStartIndex, charsPerSec} = useTtsTicker(currentStr, playingStt, eventInfo, startOffset, updateIntervalMs)
-  const length = 32
+  const {displayStartIndex} = useTtsTicker(currentStr, playingStt, eventInfo, startOffset, updateIntervalMs)
   return (
     <>
     <div className="flex items-center justify-start space-x-4">
