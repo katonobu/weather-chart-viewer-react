@@ -2,35 +2,52 @@ name: Deploy Dev (Manual)
 
 on:
   workflow_dispatch:
+    inputs:
+      stage:
+        description: 'Deploy stage'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - stg
+          - prd
 
 env:
   SERVICE: weatherchart
-#  STAGE: dev
-#  ACCOUNT_ID: 357665575661  # ← devアカウントID
-#  DIST_ID: E1JJPY985HNT3W
-
-#  STAGE: stg
-#  ACCOUNT_ID: 108241940789  # ← stgアカウントID
-#  DIST_ID: E1292AX6TFD99W
-
-  STAGE: prd
-  ACCOUNT_ID: 179698341762
-  DIST_ID: EGL2TZY90L0OC
-
   AWS_REGION: ap-northeast-1
-
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     permissions:
-        id-token: write
-        contents: read
+      id-token: write
+      contents: read
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      # =========================
+      # stageごとの設定切替
+      # =========================
+      - name: Set stage config
+        id: stage
+        run: |
+          STAGE="${{ github.event.inputs.stage }}"
+          echo "STAGE=$STAGE" >> $GITHUB_ENV
+
+          if [ "$STAGE" = "dev" ]; then
+            echo "ACCOUNT_ID=357665575661" >> $GITHUB_ENV
+            echo "DIST_ID=E1JJPY985HNT3W" >> $GITHUB_ENV
+          elif [ "$STAGE" = "stg" ]; then
+            echo "ACCOUNT_ID=108241940789" >> $GITHUB_ENV
+            echo "DIST_ID=E1292AX6TFD99W" >> $GITHUB_ENV
+          else
+            echo "ACCOUNT_ID=179698341762" >> $GITHUB_ENV
+            echo "DIST_ID=EGL2TZY90L0OC" >> $GITHUB_ENV
+          fi
 
       # =========================
       # AWS認証（OIDC）
@@ -42,13 +59,13 @@ jobs:
           role-to-assume: arn:aws:iam::${{ env.ACCOUNT_ID }}:role/${{ env.SERVICE }}ContentsGitHubRole
 
       # =========================
-      # Node ver. 20である警告対策
+      # Node セットアップ
       # =========================
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-            node-version: 20
-          
+          node-version: 20
+
       # =========================
       # build（vite）
       # =========================
@@ -73,5 +90,6 @@ jobs:
       - name: Invalidate CloudFront
         run: |
           aws cloudfront create-invalidation \
-            --distribution-id ${{ env.DIST_ID}} \
+            --distribution-id ${{ env.DIST_ID }} \
             --paths "/*"
+
