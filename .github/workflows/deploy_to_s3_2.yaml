@@ -1,4 +1,4 @@
-name: Deploy Dev (Manual)
+name: Build and Deploy dev/stg/prd (Manual)
 
 on:
   workflow_dispatch:
@@ -38,15 +38,15 @@ jobs:
           STAGE="${{ github.event.inputs.stage }}"
           echo "STAGE=$STAGE" >> $GITHUB_ENV
 
-          if [ "$STAGE" = "dev" ]; then
-            echo "ACCOUNT_ID=357665575661" >> $GITHUB_ENV
-            echo "DIST_ID=E1JJPY985HNT3W" >> $GITHUB_ENV
+          if [ "$STAGE" = "prd" ]; then
+            echo "ACCOUNT_ID=179698341762" >> $GITHUB_ENV
+            echo "DIST_ID=EGL2TZY90L0OC" >> $GITHUB_ENV
           elif [ "$STAGE" = "stg" ]; then
             echo "ACCOUNT_ID=108241940789" >> $GITHUB_ENV
             echo "DIST_ID=E1292AX6TFD99W" >> $GITHUB_ENV
           else
-            echo "ACCOUNT_ID=179698341762" >> $GITHUB_ENV
-            echo "DIST_ID=EGL2TZY90L0OC" >> $GITHUB_ENV
+            echo "ACCOUNT_ID=357665575661" >> $GITHUB_ENV
+            echo "DIST_ID=E1JJPY985HNT3W" >> $GITHUB_ENV
           fi
 
       # =========================
