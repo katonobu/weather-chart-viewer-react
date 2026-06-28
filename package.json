@@ -7,6 +7,7 @@
     "dev": "VITE_BUILD_TIME=1967-09-17 vite dev --mode dev",
     "dev-stg": "VITE_BUILD_TIME=1967-09-17 vite dev --mode stg",
     "dev-prd": "VITE_BUILD_TIME=1967-09-17 vite dev --mode prd",
+    "build"    : "VITE_BUILD_TIME=$(date +'%Y-%m-%d %H:%M:%S') vite build --mode dev",
     "build-dev": "VITE_BUILD_TIME=$(date +'%Y-%m-%d %H:%M:%S') vite build --mode dev",
     "build-stg": "VITE_BUILD_TIME=$(date +'%Y-%m-%d %H:%M:%S') vite build --mode stg",
     "build-prd": "VITE_BUILD_TIME=$(date +'%Y-%m-%d %H:%M:%S') vite build --mode prd",
