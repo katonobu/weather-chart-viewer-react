@@ -61,10 +61,6 @@ jobs:
       # =========================
       - name: Invalidate CloudFront
         run: |
-          DIST_ID=$(aws cloudfront list-distributions \
-            --query "DistributionList.Items[?Comment=='${{ env.STAGE }}-${{ env.SERVICE }}'].Id" \
-            --output text)
-
           aws cloudfront create-invalidation \
-            --distribution-id $DIST_ID \
+            --distribution-id E1JJPY985HNT3W \
             --paths "/*"
