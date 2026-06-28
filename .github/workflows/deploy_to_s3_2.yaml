@@ -13,6 +13,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    permissions:
+        id-token: write
+        contents: read
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -26,6 +30,14 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
           role-to-assume: arn:aws:iam::${{ env.ACCOUNT_ID }}:role/${{ env.SERVICE }}ContentsGitHubRole
 
+      # =========================
+      # Node ver. 20である警告対策
+      # =========================
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+            node-version: 20
+          
       # =========================
       # build（vite）
       # =========================
