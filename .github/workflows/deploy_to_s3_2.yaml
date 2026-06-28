@@ -1,0 +1,58 @@
+name: Deploy Dev (Manual)
+
+on:
+  workflow_dispatch:
+
+env:
+  SERVICE: weatherchart
+  STAGE: dev
+  AWS_REGION: ap-northeast-1
+  ACCOUNT_ID: 357665575661  # ← devアカウントID
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # =========================
+      # AWS認証（OIDC）
+      # =========================
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: arn:aws:iam::${{ env.ACCOUNT_ID }}:role/${{ env.SERVICE }}ContentsGitHubRole
+
+      # =========================
+      # build（vite）
+      # =========================
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      # =========================
+      # S3 deploy
+      # =========================
+      - name: Deploy to S3
+        run: |
+          aws s3 sync ./dist \
+            s3://frontend-${{ env.STAGE }}-${{ env.SERVICE }}-site \
+            --delete
+
+      # =========================
+      # CloudFront invalidate
+      # =========================
+      - name: Invalidate CloudFront
+        run: |
+          DIST_ID=$(aws cloudfront list-distributions \
+            --query "DistributionList.Items[?Comment=='${{ env.STAGE }}-${{ env.SERVICE }}'].Id" \
+            --output text)
+
+          aws cloudfront create-invalidation \
+            --distribution-id $DIST_ID \
+            --paths "/*"
