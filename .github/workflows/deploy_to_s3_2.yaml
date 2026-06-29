@@ -25,9 +25,6 @@ jobs:
       id-token: write
       contents: read
 
-    env:
-      VITE_CONTENTS_PATH: https://d3n12iuf4gk58s.cloudfront.net/shared/services/weatherchart/
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -44,12 +41,15 @@ jobs:
           if [ "$STAGE" = "prd" ]; then
             echo "ACCOUNT_ID=179698341762" >> $GITHUB_ENV
             echo "DIST_ID=E3W1M78O72OP78" >> $GITHUB_ENV
+            echo "VITE_CONTENTS_PATH=https://d3n12iuf4gk58s.cloudfront.net/shared/services/weatherchart/" >> $GITHUB_ENV
           elif [ "$STAGE" = "stg" ]; then
             echo "ACCOUNT_ID=108241940789" >> $GITHUB_ENV
             echo "DIST_ID=E2DYA9BWGLHDV7" >> $GITHUB_ENV
+            echo "VITE_CONTENTS_PATH=https://d1xdqsn7je8bay.cloudfront.net/shared/services/weatherchart/" >> $GITHUB_ENV
           else
             echo "ACCOUNT_ID=357665575661" >> $GITHUB_ENV
             echo "DIST_ID=E3KCZCB6BTKPI9" >> $GITHUB_ENV
+            echo "VITE_CONTENTS_PATH=https://d34gin1ci1k4s7.cloudfront.net/shared/services/weatherchart/" >> $GITHUB_ENV
           fi
 
       # =========================
