@@ -25,6 +25,9 @@ jobs:
       id-token: write
       contents: read
 
+    env:
+      VITE_CONTENTS_PATH: https://weatherchart.katonobu.click/shared/services/weatherchart/
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
