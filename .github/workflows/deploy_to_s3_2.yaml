@@ -43,10 +43,10 @@ jobs:
 
           if [ "$STAGE" = "prd" ]; then
             echo "ACCOUNT_ID=179698341762" >> $GITHUB_ENV
-            echo "DIST_ID=EGL2TZY90L0OC" >> $GITHUB_ENV
+            echo "DIST_ID=E3W1M78O72OP78" >> $GITHUB_ENV
           elif [ "$STAGE" = "stg" ]; then
             echo "ACCOUNT_ID=108241940789" >> $GITHUB_ENV
-            echo "DIST_ID=E1292AX6TFD99W" >> $GITHUB_ENV
+            echo "DIST_ID=E2DYA9BWGLHDV7" >> $GITHUB_ENV
           else
             echo "ACCOUNT_ID=357665575661" >> $GITHUB_ENV
             echo "DIST_ID=E3KCZCB6BTKPI9" >> $GITHUB_ENV
