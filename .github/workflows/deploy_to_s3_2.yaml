@@ -49,7 +49,7 @@ jobs:
             echo "DIST_ID=E1292AX6TFD99W" >> $GITHUB_ENV
           else
             echo "ACCOUNT_ID=357665575661" >> $GITHUB_ENV
-            echo "DIST_ID=E1JJPY985HNT3W" >> $GITHUB_ENV
+            echo "DIST_ID=E3KCZCB6BTKPI9" >> $GITHUB_ENV
           fi
 
       # =========================
@@ -59,7 +59,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-region: ${{ env.AWS_REGION }}
-          role-to-assume: arn:aws:iam::${{ env.ACCOUNT_ID }}:role/${{ env.SERVICE }}ContentsGitHubRole
+          role-to-assume: arn:aws:iam::${{ env.ACCOUNT_ID }}:role/${{ env.SERVICE }}CodeGitHubRole
 
       # =========================
       # Node セットアップ
@@ -94,5 +94,5 @@ jobs:
         run: |
           aws cloudfront create-invalidation \
             --distribution-id ${{ env.DIST_ID }} \
-            --paths "/*"
+            --paths "/index.html"
 
