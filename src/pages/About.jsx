@@ -9,6 +9,8 @@ export default function About() {
             <ToListPage id="top"></ToListPage>
             <h1 className="text-2xl font-bold">このページについて</h1>
             <h2 className="text-lg font-bold">オープンソースライセンス</h2>
+            <p>このアプリケーションは、以下のオープンソースライブラリを使用しています。</p>
+            <hr></hr>
             <AboutDescription></AboutDescription>
             <Footer></Footer>
         </div>

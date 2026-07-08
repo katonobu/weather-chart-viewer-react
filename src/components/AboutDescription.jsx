@@ -1,7 +1,17 @@
+import { useEffect, useState } from 'react';
+
 export const AboutDescription = () => {
-    return (
-        <ul className="list-disc text-wrap px-10">
-            <li>これから追記予定</li>
-        </ul>
-    )
+  const [licenseText, setLicenseText] = useState('');
+
+  useEffect(() => {
+    fetch('/third-party-licenses.txt')
+      .then((res) => res.text())
+      .then((text) => setLicenseText(text));
+  }, []);
+
+  return (
+    <div>
+      <pre style={{ whiteSpace: 'pre-wrap' }}>{licenseText}</pre>
+    </div>
+  );
 }
